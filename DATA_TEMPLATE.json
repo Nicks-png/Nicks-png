@@ -1,0 +1,23 @@
+{
+  "username": "@nicks-png",
+  "fullName": "Seu Nome Completo",
+  "bio": "Sua bio do Instagram aqui",
+  "profilePic": "https://exemplo.com/sua-foto.jpg",
+  "posts": 0,
+  "followers": 0,
+  "following": 0,
+  "postsImages": [
+    {
+      "image": "https://exemplo.com/post1.jpg",
+      "likes": 100
+    },
+    {
+      "image": "https://exemplo.com/post2.jpg",
+      "likes": 250
+    },
+    {
+      "image": "https://exemplo.com/post3.jpg",
+      "likes": 89
+    }
+  ]
+}
