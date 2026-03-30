@@ -21,18 +21,29 @@ const galleryEl = document.getElementById('gallery');
 const ctaButton = document.querySelector('.cta-button');
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    loadProfile();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadProfile();
     renderGallery();
     setupButton();
 });
 
 // Carregar dados do perfil
-function loadProfile() {
-    // Usa dados locais primeiro (podem ser substituídos por fetch de API)
+async function loadProfile() {
+    // Tenta carregar do arquivo profile-data.json primeiro
+    try {
+        const response = await fetch('profile-data.json');
+        if (response.ok) {
+            const data = await response.json();
+            profileData = { ...profileData, ...data };
+        }
+    } catch (e) {
+        console.log('profile-data.json não encontrado, usando dados padrão');
+    }
+
+    // Depois tenta localStorage (sobrescreve se existir)
     const savedData = localStorage.getItem('instagramProfile');
     if (savedData) {
-        profileData = JSON.parse(savedData);
+        profileData = { ...profileData, ...JSON.parse(savedData) };
     }
 
     // Atualiza DOM

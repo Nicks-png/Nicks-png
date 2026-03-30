@@ -1,0 +1,35 @@
+{
+  "username": "@runebass_",
+  "fullName": "Run The Beat",
+  "bio": "Comunidade\nRun the Beat, Feel the Bass!\nPowered by @growthsupplements\nSupport by @redbullbr\nHydration by @liquidiv.brasil",
+  "profilePic": "https://via.placeholder.com/150/6366f1/ffffff?text=R",
+  "posts": 73,
+  "followers": 57800,
+  "following": 81,
+  "postsImages": [
+    {
+      "image": "https://via.placeholder.com/600x600/6366f1/ffffff?text=Post+1",
+      "likes": 1500
+    },
+    {
+      "image": "https://via.placeholder.com/600x600/8b5cf6/ffffff?text=Post+2",
+      "likes": 2300
+    },
+    {
+      "image": "https://via.placeholder.com/600x600/4f46e5/ffffff?text=Post+3",
+      "likes": 890
+    },
+    {
+      "image": "https://via.placeholder.com/600x600/6366f1/ffffff?text=Post+4",
+      "likes": 3200
+    },
+    {
+      "image": "https://via.placeholder.com/600x600/8b5cf6/ffffff?text=Post+5",
+      "likes": 1200
+    },
+    {
+      "image": "https://via.placeholder.com/600x600/4f46e5/ffffff?text=Post+6",
+      "likes": 2800
+    }
+  ]
+}
