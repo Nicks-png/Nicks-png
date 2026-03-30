@@ -1,13 +1,19 @@
-// Dados do perfil (será preenchido com dados reais do Instagram)
-const profileData = {
-    username: "@nicks-png",
-    fullName: "",
-    bio: "Bio do perfil Instagram",
-    profilePic: "https://via.placeholder.com/150",
-    posts: 0,
-    followers: 0,
-    following: 0,
-    postsImages: []
+// Dados do perfil (carregados do JSON)
+let profileData = {
+    username: "@runebass_",
+    bio: "Comunidade<br>Run the Beat, Feel the Bass!",
+    profilePic: "https://via.placeholder.com/180/ff3366/ffffff?text=RTB",
+    posts: 73,
+    followers: 57800,
+    following: 81,
+    postsImages: [
+        { image: "https://via.placeholder.com/600x600/ff3366/ffffff?text=Bass+1", likes: 2500 },
+        { image: "https://via.placeholder.com/600x600/33ccff/ffffff?text=Bass+2", likes: 3200 },
+        { image: "https://via.placeholder.com/600x600/ffcc00/ffffff?text=Bass+3", likes: 1800 },
+        { image: "https://via.placeholder.com/600x600/ff3366/ffffff?text=Bass+4", likes: 4100 },
+        { image: "https://via.placeholder.com/600x600/6633ff/ffffff?text=Bass+5", likes: 2100 },
+        { image: "https://via.placeholder.com/600x600/ff6633/ffffff?text=Bass+6", likes: 2900 }
+    ]
 };
 
 // DOM Elements
@@ -18,18 +24,15 @@ const postsCountEl = document.getElementById('posts-count');
 const followersCountEl = document.getElementById('followers-count');
 const followingCountEl = document.getElementById('following-count');
 const galleryEl = document.getElementById('gallery');
-const ctaButton = document.querySelector('.cta-button');
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', async () => {
     await loadProfile();
     renderGallery();
-    setupButton();
 });
 
 // Carregar dados do perfil
 async function loadProfile() {
-    // Tenta carregar do arquivo profile-data.json primeiro
     try {
         const response = await fetch('profile-data.json');
         if (response.ok) {
@@ -40,48 +43,39 @@ async function loadProfile() {
         console.log('profile-data.json não encontrado, usando dados padrão');
     }
 
-    // Depois tenta localStorage (sobrescreve se existir)
-    const savedData = localStorage.getItem('instagramProfile');
+    const savedData = localStorage.getItem('runthebeat_profile');
     if (savedData) {
         profileData = { ...profileData, ...JSON.parse(savedData) };
     }
 
     // Atualiza DOM
     profilePicEl.src = profileData.profilePic;
-    profilePicEl.alt = `Foto de perfil de ${profileData.username}`;
+    profilePicEl.alt = "Run the Beat Logo";
     usernameEl.textContent = profileData.username;
-    bioEl.textContent = profileData.bio;
+    bioEl.innerHTML = profileData.bio.replace(/\n/g, '<br>');
     postsCountEl.textContent = formatNumber(profileData.posts);
     followersCountEl.textContent = formatNumber(profileData.followers);
     followingCountEl.textContent = formatNumber(profileData.following);
 }
 
-// Renderizar galeria de posts
+// Renderizar galeria
 function renderGallery() {
     if (!profileData.postsImages || profileData.postsImages.length === 0) {
-        // Se não houver dados, mostra placeholder
-        galleryEl.innerHTML = `
-            <div class="loading"></div>
-        `;
+        galleryEl.innerHTML = '<div class="loading"><div class="loading-card"></div><div class="loading-card"></div><div class="loading-card"></div><div class="loading-card"></div><div class="loading-card"></div><div class="loading-card"></div></div>';
         return;
     }
 
     galleryEl.innerHTML = profileData.postsImages.map(post => `
         <div class="gallery-item">
-            <img src="${post.image}" alt="Post do ${profileData.username}" loading="lazy">
-            <div class="overlay">
+            <img src="${post.image}" alt="Post do perfil" loading="lazy">
+            <div class="gallery-overlay">
                 <span class="likes">❤️ ${formatNumber(post.likes)}</span>
             </div>
         </div>
     `).join('');
 }
 
-// Configurar botão CTA
-function setupButton() {
-    ctaButton.href = `https://instagram.com/${profileData.username.replace('@', '')}`;
-}
-
-// Formatar números (ex: 1500 -> 1.5K)
+// Formatar números
 function formatNumber(num) {
     if (num >= 1000000) {
         return (num / 1000000).toFixed(1) + 'M';
@@ -92,16 +86,15 @@ function formatNumber(num) {
     return num.toLocaleString('pt-BR');
 }
 
-// Atualizar dados do perfil (chamado externamente)
+// API para atualizar dados
 function updateProfile(data) {
     profileData = { ...profileData, ...data };
-    localStorage.setItem('instagramProfile', JSON.stringify(profileData));
+    localStorage.setItem('runthebeat_profile', JSON.stringify(profileData));
     loadProfile();
     renderGallery();
 }
 
-// Permitir atualização via console (útil para debugging)
-window.updateProfileFromConsole = updateProfile;
+window.updateProfile = updateProfile;
 
-console.log('Site carregado! Para atualizar dados do perfil, use:');
-console.log('updateProfileFromConsole({ bio: "nova bio", followers: 1000, ... })');
+console.log('Run the Beat - Site carregado!');
+console.log('Use updateProfile({...}) para atualizar dados.');
